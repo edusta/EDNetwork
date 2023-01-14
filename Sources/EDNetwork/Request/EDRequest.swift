@@ -9,8 +9,9 @@ import Foundation
 
 public protocol EDRequest {
     associatedtype Endpoint: EDEndpoint
+    associatedtype RequestData: EDRequestData
 
     var url: URL { get }
     var endpoint: Endpoint { get }
-    var requestData: any EDRequestData { get }
+    var requestData: RequestData { get }
 }

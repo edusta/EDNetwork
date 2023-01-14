@@ -126,7 +126,7 @@ final class EDNetworkTests: XCTestCase {
 private extension EDNetworkTests {
     var expectedData: StubCodableData { StubCodableData(id: "1", name: "Engin") }
     var url: URL { URL(string: "https://edusta.dev")! }
-    var requestData: any EDRequestData {
+    var requestData: StubRequestData {
         StubRequestData(data: expectedData, headers: nil, queryItems: nil)
     }
     var request: some EDRequest {

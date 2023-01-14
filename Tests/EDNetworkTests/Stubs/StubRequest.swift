@@ -11,5 +11,5 @@ import Foundation
 struct StubRequest: EDRequest {
     let url: URL
     let endpoint: StubEndpoint
-    let requestData: any EDRequestData
+    let requestData: StubRequestData
 }
