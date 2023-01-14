@@ -129,8 +129,8 @@ private extension EDNetworkTests {
     var requestData: any EDRequestData {
         StubRequestData(data: expectedData, headers: nil, queryItems: nil)
     }
-    var request: EDRequest {
-        StubRequest(url: url, endpoint: StubEndpoint.posts, requestData: requestData)
+    var request: some EDRequest {
+        StubRequest(url: url, endpoint: .posts, requestData: requestData)
     }
     var publisher: AnyPublisher<StubCodableData, EDNetworkError> {
         network.sendRequest(request)

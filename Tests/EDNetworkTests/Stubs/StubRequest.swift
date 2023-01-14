@@ -10,6 +10,6 @@ import Foundation
 
 struct StubRequest: EDRequest {
     let url: URL
-    let endpoint: EDEndpoint
+    let endpoint: StubEndpoint
     let requestData: any EDRequestData
 }

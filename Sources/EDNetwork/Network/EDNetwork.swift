@@ -17,7 +17,7 @@ public class EDNetwork {
         self.session = session
     }
 
-    public func sendRequest<T: Decodable>(_ request: EDRequest) -> AnyPublisher<T, EDNetworkError> {
+    public func sendRequest<T: Decodable>(_ request: some EDRequest) -> AnyPublisher<T, EDNetworkError> {
         do {
             let urlRequest = try requestConverter.constructURLRequest(from: request)
             return session
@@ -31,7 +31,7 @@ public class EDNetwork {
         }
     }
 
-    public func sendRequest<T: Decodable>(_ request: EDRequest) async -> Result<T, EDNetworkError> {
+    public func sendRequest<T: Decodable>(_ request: some EDRequest) async -> Result<T, EDNetworkError> {
         do {
             let urlRequest = try requestConverter.constructURLRequest(from: request)
             let result = try await session.data(for: urlRequest)
@@ -43,7 +43,7 @@ public class EDNetwork {
         }
     }
 
-    public func sendRequest<T: Decodable>(_ request: EDRequest,
+    public func sendRequest<T: Decodable>(_ request: some EDRequest,
                                           completionHandler: @escaping ((Result<T, EDNetworkError>) -> Void)) {
         do {
             let urlRequest = try requestConverter.constructURLRequest(from: request)

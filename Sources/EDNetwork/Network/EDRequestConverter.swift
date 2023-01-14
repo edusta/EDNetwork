@@ -10,7 +10,7 @@ import Foundation
 class EDRequestConverter {
     private let jsonEncoder = JSONEncoder()
 
-    func constructURLRequest(from request: EDRequest) throws -> URLRequest {
+    func constructURLRequest(from request: some EDRequest) throws -> URLRequest {
         let url = try constructURL(from: request)
         var urlRequest = URLRequest(url: url)
         let requestData = request.requestData
@@ -25,7 +25,7 @@ class EDRequestConverter {
 }
 
 private extension EDRequestConverter {
-    func constructURL(from request: EDRequest) throws -> URL {
+    func constructURL(from request: some EDRequest) throws -> URL {
         let url = request.url
         guard var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
             throw EDNetworkError.invalidURL
