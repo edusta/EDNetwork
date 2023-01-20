@@ -33,11 +33,18 @@ public class EDNetwork {
 
     public func sendRequest<T: Decodable>(_ request: some EDRequest) async -> Result<T, EDNetworkError> {
         do {
-            let urlRequest = try requestConverter.constructURLRequest(from: request)
-            let result = try await session.data(for: urlRequest)
-            let data = try transformResult(result)
+            let data = try await fetchAsyncData(request)
             let decodedData = try jsonDecoder.decode(T.self, from: data)
             return .success(decodedData)
+        } catch {
+            return .failure(error.toNetworkError)
+        }
+    }
+
+    public func sendRequest(_ request: some EDRequest) async -> Result<Data, EDNetworkError> {
+        do {
+            let data = try await fetchAsyncData(request)
+            return .success(data)
         } catch {
             return .failure(error.toNetworkError)
         }
@@ -83,5 +90,12 @@ private extension EDNetwork {
             throw EDNetworkError.badResponse(statusCode)
         }
         return result.data
+    }
+
+    func fetchAsyncData(_ request: some EDRequest) async throws -> Data {
+        let urlRequest = try requestConverter.constructURLRequest(from: request)
+        let result = try await session.data(for: urlRequest)
+        let data = try transformResult(result)
+        return data
     }
 }

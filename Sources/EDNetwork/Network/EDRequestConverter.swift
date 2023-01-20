@@ -35,7 +35,9 @@ private extension EDRequestConverter {
         urlComponents.queryItems = requestData.queryItems?.map({
             URLQueryItem(name: $0, value: $1)
         })
-        urlComponents.path = request.endpoint.path
+        if !request.endpoint.path.isEmpty {
+            urlComponents.path = request.endpoint.path
+        }
         guard let constructedURL = urlComponents.url else { throw EDNetworkError.invalidURL }
         return constructedURL
     }
