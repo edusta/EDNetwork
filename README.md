@@ -1,3 +1,3 @@
 # EDNetwork
 
-A description of this package.
+For all of your network requirements.
